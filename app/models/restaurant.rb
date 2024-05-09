@@ -1,5 +1,6 @@
+# Classe de restaurants
 class Restaurant < ApplicationRecord
-  validates :name, :adress, :category, presence: true #a repliquer sur plusieurs lignes ?
-  category = ["chinese", "italian", "japanese", "french", "belgian"]
-  validates :category.in?(category)
+  has_many :reviews, dependent: :destroy
+  validates :name, :address, :category, presence: true
+  validates :category, inclusion: { in: %w[chinese italian japanese french belgian], message: "%{value} doesn't belong to the proper categories" }
 end

@@ -7,3 +7,20 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+require 'faker'
+
+categories = ["chinese", "italian", "japanese", "french", "belgian"]
+shuffled_categories = categories.shuffle()
+
+Restaurant.destroy_all
+
+10.times do Restaurant.new(
+    name: Faker::Restaurant.name,
+    address: Faker::Address.full_address,
+    phone_number: Faker::PhoneNumber.phone_number,
+    category: shuffled_categories.pop,
+  ).save
+end
+
+p "Created #{Restaurant.count} restaurants"
